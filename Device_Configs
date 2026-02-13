@@ -1,0 +1,301 @@
+** Main-router Configration 
+
+Building configuration...
+
+Current configuration : 3477 bytes
+!
+version 15.1
+no service timestamps log datetime msec
+no service timestamps debug datetime msec
+no service password-encryption
+!
+hostname Main-router
+!
+!
+!
+!
+ip dhcp excluded-address 192.168.4.20 192.168.4.30
+ip dhcp excluded-address 192.168.1.1 192.168.1.20
+ip dhcp excluded-address 192.168.2.20 192.168.2.50
+ip dhcp excluded-address 192.168.3.20 192.168.3.50
+ip dhcp excluded-address 192.168.4.20 192.168.4.50
+ip dhcp excluded-address 192.168.5.20 192.168.5.50
+!
+ip dhcp pool B1
+ network 192.168.4.0 255.255.255.0
+ default-router 192.168.4.10
+ip dhcp pool A1
+ network 192.168.1.0 255.255.255.0
+ default-router 192.168.1.10
+ip dhcp pool HR
+ network 192.168.2.0 255.255.255.0
+ default-router 192.168.2.10
+ip dhcp pool F1
+ network 192.168.3.0 255.255.255.0
+ default-router 192.168.3.10
+ip dhcp pool Eng
+ network 192.168.5.0 255.255.255.0
+ip dhcp pool eng
+ network 192.168.5.0 255.255.255.0
+ default-router 192.168.5.10
+ip dhcp pool art
+ network 192.168.6.0 255.255.255.0
+ default-router 192.168.6.10
+ip dhcp pool labs
+ network 192.168.7.0 255.255.255.0
+ default-router 192.168.7.10
+ip dhcp pool IT
+ network 192.168.8.0 255.255.255.0
+ default-router 192.168.8.10
+!
+!
+!
+no ip cef
+no ipv6 cef
+!
+!
+!
+!
+license udi pid CISCO2911/K9 sn FTX1524XJB7-
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+spanning-tree mode pvst
+!
+!
+!
+!
+!
+!
+interface GigabitEthernet0/0
+ no ip address
+ duplex auto
+ speed auto
+ shutdown
+!
+interface GigabitEthernet0/1
+ no ip address
+ duplex auto
+ speed auto
+!
+interface GigabitEthernet0/1.10
+ encapsulation dot1Q 10
+ ip address 192.168.1.10 255.255.255.0
+!
+interface GigabitEthernet0/1.20
+ encapsulation dot1Q 20
+ ip address 192.168.2.10 255.255.255.0
+!
+interface GigabitEthernet0/1.30
+ encapsulation dot1Q 30
+ ip address 192.168.3.10 255.255.255.0
+!
+interface GigabitEthernet0/1.40
+ encapsulation dot1Q 40
+ ip address 192.168.4.10 255.255.255.0
+!
+interface GigabitEthernet0/1.50
+ encapsulation dot1Q 50
+ ip address 192.168.5.10 255.255.255.0
+!
+interface GigabitEthernet0/1.60
+ encapsulation dot1Q 60
+ ip address 192.168.6.10 255.255.255.0
+ ip access-group campus-security in
+!
+interface GigabitEthernet0/1.70
+ encapsulation dot1Q 70
+ ip address 192.168.7.10 255.255.255.0
+!
+interface GigabitEthernet0/1.80
+ encapsulation dot1Q 80
+ ip address 192.168.8.10 255.255.255.0
+!
+interface GigabitEthernet0/2
+ no ip address
+ duplex auto
+ speed auto
+ shutdown
+!
+interface Serial0/1/0
+ ip address 10.10.10.5 255.255.255.252
+ clock rate 64000
+!
+interface Serial0/1/1
+ ip address 10.10.10.1 255.255.255.252
+ clock rate 64000
+!
+interface Vlan1
+ no ip address
+ shutdown
+!
+router ospf 1
+ log-adjacency-changes
+ network 10.10.10.4 0.0.0.3 area 0
+ network 20.0.0.0 0.0.0.3 area 0
+ network 192.168.1.0 0.0.0.255 area 0
+ network 192.168.2.0 0.0.0.255 area 0
+ network 192.168.3.0 0.0.0.255 area 0
+ network 192.168.4.0 0.0.0.255 area 0
+ network 192.168.5.0 0.0.0.255 area 0
+ network 192.168.6.0 0.0.0.255 area 0
+ network 192.168.7.0 0.0.0.255 area 0
+ network 192.168.8.0 0.0.0.255 area 0
+ network 192.168.9.0 0.0.0.255 area 0
+ network 192.168.10.0 0.0.0.255 area 0
+ network 10.10.10.0 0.0.0.3 area 0
+!
+ip classless
+ip route 0.0.0.0 0.0.0.0 10.10.10.2 
+ip route 0.0.0.0 0.0.0.0 10.10.10.6 
+!
+ip flow-export version 9
+!
+!
+ip access-list extended campus-security
+ deny ip 192.168.6.0 0.0.0.255 192.168.1.0 0.0.0.255
+ deny ip 192.168.6.0 0.0.0.255 192.168.2.0 0.0.0.255
+ deny ip 192.168.6.0 0.0.0.255 192.168.3.0 0.0.0.255
+ permit ip any any
+!
+!
+!
+!
+!
+line con 0
+!
+line aux 0
+!
+line vty 0 4
+ login
+!
+!
+!
+end
+
+
+
+
+** Branch-router Configration 
+
+Building configuration...
+
+Current configuration : 1374 bytes
+!
+version 15.1
+no service timestamps log datetime msec
+no service timestamps debug datetime msec
+no service password-encryption
+!
+hostname branch-router
+!
+!
+!
+!
+!
+ip dhcp pool lab1
+ip dhcp pool sc
+ network 192.168.10.0 255.255.255.0
+ default-router 192.168.10.10
+!
+!
+!
+no ip cef
+no ipv6 cef
+!
+!
+!
+!
+license udi pid CISCO2911/K9 sn FTX15246B2C-
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+spanning-tree mode pvst
+!
+!
+!
+!
+!
+!
+interface GigabitEthernet0/0
+ no ip address
+ duplex auto
+ speed auto
+!
+interface GigabitEthernet0/0.90
+ encapsulation dot1Q 90
+ ip address 192.168.9.10 255.255.255.0
+!
+interface GigabitEthernet0/0.100
+ encapsulation dot1Q 100
+ ip address 192.168.10.10 255.255.255.0
+!
+interface GigabitEthernet0/1
+ no ip address
+ duplex auto
+ speed auto
+ shutdown
+!
+interface GigabitEthernet0/2
+ no ip address
+ duplex auto
+ speed auto
+ shutdown
+!
+interface Serial0/0/0
+ no ip address
+ clock rate 2000000
+ shutdown
+!
+interface Serial0/0/1
+ ip address 10.10.10.2 255.255.255.252
+!
+interface Vlan1
+ no ip address
+ shutdown
+!
+router ospf 1
+ log-adjacency-changes
+ network 20.0.0.0 0.0.0.3 area 0
+ network 10.10.10.4 0.0.0.3 area 0
+ network 10.10.10.0 0.0.0.3 area 0
+ network 192.168.9.0 0.0.0.255 area 0
+ network 192.168.10.0 0.0.0.255 area 0
+!
+ip classless
+ip route 0.0.0.0 0.0.0.0 10.10.10.1 
+!
+ip flow-export version 9
+!
+!
+!
+!
+!
+!
+!
+line con 0
+!
+line aux 0
+!
+line vty 0 4
+ login
+!
+!
+!
+end
