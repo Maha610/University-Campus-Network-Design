@@ -1,5 +1,5 @@
 # 🏫 University Campus Network Design
-
+Comprehensive multi-campus network design for a university with 8+ VLANs, OSPF routing, EtherChannel (LACP), and security features including Port Security and ACLs to isolate student traffic. Built with Cisco Packet Tracer.
 
 ## 📌 Project Overview
 This project simulates a "multi-campus university network" using Cisco Packet Tracer. It includes :VLAN segmentation,Inter-VLAN routing,OSPF,DHCP,EtherChannel,Port Security,and ACLs.
